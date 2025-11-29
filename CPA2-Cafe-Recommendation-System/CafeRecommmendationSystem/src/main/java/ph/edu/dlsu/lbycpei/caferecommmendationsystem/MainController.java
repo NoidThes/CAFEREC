@@ -162,4 +162,18 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    private void handleInventory() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/inventory-view.fxml"));
+        Parent root = loader.load();
+    
+        Stage stage = (Stage) recommendButton.getScene().getWindow();
+        stage.setScene(new Scene(root));
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
 }
