@@ -37,6 +37,11 @@
                                         <Insets right="15.0" />
                                     </HBox.margin>
                                 </Label>
+                                <Button mnemonicParsing="false" onAction="#handleInventory" text="Inventory">
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </Button>
                                 <Button mnemonicParsing="false" onAction="#handleLogout" text="Logout">
                                     <HBox.margin>
                                         <Insets right="20.0" />
@@ -180,4 +185,5 @@
             </children>
         </VBox>
     </children>
+
 </AnchorPane>
