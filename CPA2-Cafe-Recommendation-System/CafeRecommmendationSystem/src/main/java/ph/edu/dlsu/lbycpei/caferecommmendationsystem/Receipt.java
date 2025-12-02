@@ -2,6 +2,8 @@ package ph.edu.dlsu.lbycpei.caferecommmendationsystem;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Receipt {
 
@@ -15,12 +17,23 @@ public class Receipt {
         sb.append("Date: ").append(dtf.format(LocalDateTime.now())).append("\n");
         sb.append("\n");
 
+        Map<String, Integer> itemCounts = new HashMap<>();
+        Map<String, Double> itemPrices = new HashMap<>();
+        
         double total = 0;
 
         for (MenuItem item : order.getItems()) {
             sb.append(String.format("%-25s ₱%.2f%n", item.getName(), item.getPrice()));
             total += item.getPrice();
         }
+
+        for (String name : itemCounts.keySet()) {
+            int quantity = itemCounts.get(name);
+            double price = itemPrices.get(name);
+            sb.append(String.format("%-20s x%-3d ₱%.2f%n", name, quantity, price * quantity));
+            total += price * quantity;
+        }
+
 
         sb.append("-------------------------------\n");
         sb.append(String.format("%-25s ₱%.2f%n", "TOTAL:", total));
@@ -30,4 +43,5 @@ public class Receipt {
 
         return sb.toString();
     }
+
 }
