@@ -13,11 +13,15 @@ public class CafeSystem {
     private Similarity similarity = new Similarity();
     private Order currentOrder = new Order();
 
+    private Inventory inventory = new Inventory();
+    public Inventory getInventory() { return inventory; }
+
     private Map<String, User> users = new HashMap<>();
     private User currentUser = null;
 
     public CafeSystem() {
         loadSampleMenu();
+        loadSampleInventory();
         users.put("admin", new User("admin", "admin"));
     }
 
@@ -27,6 +31,14 @@ public class CafeSystem {
         menu.addItem(new MenuItem("Dubai Chocolate Brownie", 95));
         menu.addItem(new MenuItem("Iced Tea", 100));
         menu.addItem(new MenuItem("Lemonade", 80));
+    }
+
+    private void loadSampleInventory() {
+        inventory.addItem(new InventoryItem("Matcha Latte", 50, "Beverage"));
+        inventory.addItem(new InventoryItem("Espresso", 30, "Beverage"));
+        inventory.addItem(new InventoryItem("Dubai Chocolate Brownie", 100, "Sweet"));
+        inventory.addItem(new InventoryItem("Iced Tea", 20, "Beverage"));
+        inventory.addItem(new InventoryItem("Lemonade", 20, "Beverage"));
     }
 
     public boolean registerUser(String username, String password) {
@@ -64,11 +76,26 @@ public class CafeSystem {
     }
 
     public boolean addItemToOrder(String itemName) {
+
+        InventoryItem stock = inventory.getItemByName(itemName);
+        if (stock == null) {
+            System.out.println("Item does not exist in inventory.");
+            return false;
+        }
+
+        if (stock.getQuantity() <= 0) {
+            System.out.println("OUT OF STOCK: " + itemName);
+            return false;
+        }
+
+        inventory.reduceStock(itemName);
+
         MenuItem item = menu.getItemByName(itemName);
         if (item != null) {
             currentOrder.addItem(item);
             return true;
         }
+
         return false;
     }
 
@@ -124,4 +151,5 @@ public class CafeSystem {
     public List<MenuItem> getMenuItems() {
         return menu.getItems();
     }
+
 }
