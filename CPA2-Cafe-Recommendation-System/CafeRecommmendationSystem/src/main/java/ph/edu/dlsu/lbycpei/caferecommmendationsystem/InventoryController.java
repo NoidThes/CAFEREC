@@ -4,7 +4,11 @@ package ph.edu.dlsu.lbycpei.caferecommmendationsystem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 
 public class InventoryController {
@@ -80,4 +84,53 @@ public class InventoryController {
     @FXML
     private void handleDelete() {
         InventoryItem item = inventoryTable.getSelectionModel().getSelectedItem();
+        if (item == null) { showAlert("Select an item to delete."); return; }
+        inventoryList.remove(item);
     }
+
+
+    private void clearFields() {
+        txtName.clear();
+        txtQuantity.clear();
+        txtCategory.clear();
+    }
+
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    private void handleBackToMain() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/cafe-view.fxml"));
+            Parent root = loader.load();
+
+            MainController mainController = loader.getController();
+            mainController.setCafeSystem(this.cafeSystem);
+
+            Stage stage = (Stage) inventoryTable.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private CafeSystem cafeSystem;
+
+    public void setCafeSystem(CafeSystem system) {
+        this.cafeSystem = system;
+        inventoryTable.setItems(
+                FXCollections.observableArrayList(cafeSystem.getInventory().getItems())
+        );
+    }
+
+}
+
