@@ -10,17 +10,10 @@ public class OrderViewController {
 
     private CafeSystem cafeSystem;
 
-    @FXML
-    private TableView<MenuItem> orderTable;
-
-    @FXML
-    private TableColumn<MenuItem, String> orderNameColumn;
-
-    @FXML
-    private TableColumn<MenuItem, Integer> orderPriceColumn;
-
-    @FXML
-    private Label totalLabel;
+    @FXML private TableView<MenuItem> orderTable;
+    @FXML private TableColumn<MenuItem, String> orderNameColumn;
+    @FXML private TableColumn<MenuItem, Integer> orderPriceColumn;
+    @FXML private Label totalLabel;
 
 
     public void setCafeSystem(CafeSystem system) {
@@ -66,4 +59,5 @@ public class OrderViewController {
         refreshTotal();
     }
 }
+
 
