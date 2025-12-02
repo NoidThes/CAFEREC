@@ -46,9 +46,6 @@ public class OrderViewController {
     }
 
 
-    // -------------------------------
-    //  UPDATE TOTAL LABEL
-    // -------------------------------
     public void refreshTotal() {
         if (cafeSystem != null) {
             int total = 0;
@@ -60,16 +57,13 @@ public class OrderViewController {
     }
 
 
-    // -------------------------------
-    //  FINALIZE ORDER BUTTON
-    // -------------------------------
     @FXML
     private void handleCheckout() {
         String receipt = cafeSystem.finalizeOrder();
         System.out.println(receipt);
 
-        // Reset UI
         refreshOrderTable();
         refreshTotal();
     }
 }
+
