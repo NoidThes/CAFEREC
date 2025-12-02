@@ -37,7 +37,7 @@
                                         <Insets right="15.0" />
                                     </HBox.margin>
                                 </Label>
-                                <Button mnemonicParsing="false" onAction="#handleInventory" text="Inventory">
+                                <Button mnemonicParsing="false" fx:id="inventoryButton" onAction="#handleInventory" text="Inventory">
                                     <HBox.margin>
                                         <Insets right="10.0" />
                                     </HBox.margin>
